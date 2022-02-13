@@ -1,0 +1,44 @@
+﻿<Window x:Class="Lab16_WpfApp2.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Lab16_WpfApp2"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="700" Width="300">
+    <!--Разработать анимацию движения мяча. Мяч должен двигаться вверх с замедлением,
+    а потом вниз с ускорением.-->
+    <Window.Resources>
+        <PathGeometry x:Key="line1">
+            <PathFigure StartPoint="150,600">
+                <LineSegment Point="150,50"/>
+            </PathFigure>
+        </PathGeometry>
+    </Window.Resources>
+    <Canvas>
+        <Path Data="{StaticResource line1}" Stroke="White"/>
+        <Ellipse Height="30"
+                 Width="30"
+                 Stroke="#FF6363CB"
+                 Canvas.Left="135"
+                 Canvas.Top="585"
+                 Fill="#FF0CA5D6">
+            <Ellipse.Triggers>
+                <EventTrigger RoutedEvent="Window.Loaded">
+                    <BeginStoryboard>
+                        <Storyboard>
+                            <DoubleAnimationUsingPath
+                                Storyboard.TargetProperty="(Canvas.Top)"
+                                Duration="0:0:5"
+                                PathGeometry="{StaticResource line1}"
+                                Source="Y"
+                                DecelerationRatio="1"
+                                RepeatBehavior="Forever"
+                                AutoReverse="True"/>
+                        </Storyboard>
+                    </BeginStoryboard>
+                </EventTrigger>
+            </Ellipse.Triggers>
+        </Ellipse>
+    </Canvas>
+</Window>
